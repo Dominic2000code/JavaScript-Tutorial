@@ -586,7 +586,7 @@ printDogAges(dogAges);
 
 // Test Data 1 : [5,2,4,1,15,8,3]
 // Test Data 1 : [16,6,10,5,6,1,4]
-
+/*
 const calcAverageHumanAge = (dogAges) => {
 	const humanAges = dogAges.map((dogAge) => {
 		if (dogAge <= 2) {
@@ -606,3 +606,24 @@ const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
 const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
 
 console.log(avg1, avg2);
+*/
+
+// Coding Challenge #18
+// Rewrite previous challenge with method chaining
+/*
+const calcAverageHumanAge = (dogAges) =>
+	dogAges
+		.map((dogAge) => {
+			if (dogAge <= 2) {
+				return dogAge * 2;
+			} else {
+				return 16 + dogAge * 4;
+			}
+		})
+		.filter((cur) => cur >= 18)
+		.reduce((acc, cur, i, arr) => acc + cur / arr.length, 0);
+const avg1 = calcAverageHumanAge([5, 2, 4, 1, 15, 8, 3]);
+const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
+
+console.log(avg1, avg2);
+*/
