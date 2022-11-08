@@ -51,3 +51,13 @@ movements.forEach((movement, i, array) => {
 // const withdrawals = movements.filter((mov) => mov < 0);
 
 // console.log(withdrawals);
+
+// Generate array with 100 random dice numbers
+/*
+const randomDiceNumbers = Array.from(
+  { length: 100 },
+  () => Math.floor(Math.random() * 6) + 1
+);
+
+console.log(randomDiceNumbers);
+*/
