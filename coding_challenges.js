@@ -627,3 +627,194 @@ const avg2 = calcAverageHumanAge([16, 6, 10, 5, 6, 1, 4]);
 
 console.log(avg1, avg2);
 */
+
+// Coding Challenge #19
+/*
+ Julia and Kate are still studying dogs, and this time they are studying if dogs are eating
+ too much or too little.
+ Eating too much means the dog's current food portion is larger than the recommended
+ portion, and eating too little is the opposite.
+ Eating an okay amount means the dog's current food portion is within a range 
+ 10% above and 10% below the recommended portion (See hint)
+
+ 1. Loop over the array containing dog objects, and for each dog calculate the recommended food
+ portion and add it to the object as a new property. Do NOT create a new array,
+ simply loop over the new array. Formula: recommendedFood = weight ** 0.75 * 28.
+ (The result is in grams of food, and the weight needs to be in kg)
+
+ 2. Find Sarah's dog and log to the console whether it's eating too much or too
+ little. HINT: Some dogs have multiple owners, so you first need to find sarah in the 
+ owners array.
+
+ 3. Create an array containing all owners of dogs who eat too much ('ownersEatTooMuch')
+ and an array with all owners of dogs who eat too little ('ownersEatTooLittle')
+
+ 4. Log a string to the console for each array created in 3., like this: 
+ 'Matilda and Alice and Bob's dogs eat too much!' and 
+ 'Sarah and John and Micheal's dogs eat too little!'
+
+ 5. Log to the console whether there is any dog eating EXACTLY the amount of 
+ food that is recommended (just true or false)
+
+ 6. Log to the console whether there is any dog eating an OKAY amount
+ of food (just true or false)
+
+ 7. Create an array containing the dogs that eating an OKAY amount of food
+ (try to reuse condition used in 6)
+
+ 8. Create a shallow copy of the dogs array and sort it by recommended food
+ portion in an ascending order
+
+ TEST DATA:
+ const dogs = [
+	{weight:22, currentFood: 250, owners:['Alice','Bob']},
+	{weight:8, currentFood: 200, owners:['Matilda']},
+	{weight:13, currentFood: 275, owners:['Sarah','John']},
+	{weight:32, currentFood: 340, owners:['Micheal']},
+]
+*/
+
+/*
+const dogs = [
+  { weight: 22, currentFood: 250, owners: ["Alice", "Bob"] },
+  { weight: 8, currentFood: 200, owners: ["Matilda"] },
+  { weight: 13, currentFood: 275, owners: ["Sarah", "John"] },
+  { weight: 32, currentFood: 340, owners: ["Micheal"] },
+];
+
+const calcRecommendedFood = (dogsArr) => {
+  dogsArr.forEach((dog) => {
+    dog.recommendedFood = dog.weight ** 0.75 * 28;
+  });
+};
+
+const isSarahDogOverEating = (dogsArr) => {
+  const { currentFood, recommendedFood } = dogsArr.find((dog) =>
+    dog.owners.includes("Sarah")
+  );
+  //   console.log(currentFood, recommendedFood);
+  if (currentFood > recommendedFood) {
+    console.log("Sara's dog is eating too much");
+  } else if (currentFood < recommendedFood) {
+    console.log("Sara's dog is eating too little");
+  }
+};
+
+const constructNewArray = (dogsArr) => {
+  const ownersEatTooMuch = [];
+  const ownersEatTooLittle = [];
+
+  dogsArr.forEach(({ currentFood, recommendedFood, owners }) => {
+    if (currentFood > recommendedFood) {
+      ownersEatTooMuch.push(...owners);
+    } else if (currentFood < recommendedFood) {
+      ownersEatTooLittle.push(...owners);
+    }
+  });
+
+  return {
+    "Eat too much": ownersEatTooMuch,
+    "Eat too little": ownersEatTooLittle,
+  };
+};
+
+// const logNewArrayMessage = (data) => {
+//   const eatTooMuchArr = data["Eat too much"];
+//   eatTooMuchArr.splice(
+//     eatTooMuchArr.length - 1,
+//     1,
+//     eatTooMuchArr[eatTooMuchArr.length - 1] + "'s"
+//   );
+
+//   const eatTooLittleArr = data["Eat too little"];
+//   eatTooLittleArr.splice(
+//     eatTooLittleArr.length - 1,
+//     1,
+//     eatTooLittleArr[eatTooLittleArr.length - 1] + "'s"
+//   );
+
+//   const eatTooMuchMessage = `${eatTooMuchArr.join(" and ")} dogs eat too much!`;
+
+//   const eatTooLittleMessage = `${eatTooLittleArr.join(
+//     " and "
+//   )} dogs eat too much!`;
+//   console.log(eatTooMuchMessage);
+//   console.log(eatTooLittleMessage);
+// };
+
+// const logNewArrayMessage2 = (data) => {
+//   const eatTooMuchArr = data["Eat too much"];
+
+//   const eatTooLittleArr = data["Eat too little"];
+
+//   let str = ``;
+
+//   eatTooMuchArr.forEach((name, i, arr) => {
+//     str += ` ${name}${i === arr.length - 1 ? "" : " "}${
+//       i === arr.length - 1 ? "" : "and"
+//     }`;
+//     if (i === arr.length - 1) {
+//       str.trimEnd();
+//       str += `'s dogs eat too much!`;
+//     }
+//   });
+
+//   console.log(str.trim());
+// };
+const logNewArrayMessage3 = (data) => {
+  const eatTooMuchArr = data["Eat too much"];
+
+  const eatTooLittleArr = data["Eat too little"];
+
+  console.log(`${eatTooMuchArr.join(" and ")}'s dogs eat too Much!`);
+  console.log(`${eatTooLittleArr.join(" and ")}'s dogs eat too Little!`);
+};
+
+const balancedDiet = (dogsArr) => {
+  dogsArr.forEach(({ currentFood, recommendedFood }) => {
+    if (currentFood === recommendedFood) {
+      console.log(true);
+    }
+  });
+  console.log(false);
+};
+
+const okayCondition = (currentFood, recommendedFood) =>
+  currentFood > recommendedFood * 0.9 && currentFood < recommendedFood * 1.1;
+
+const okayAmountOfFood = (dogsArr) => {
+  dogsArr.forEach(({ currentFood, recommendedFood }, i) => {
+    if (okayCondition) {
+      console.log(true, i);
+    } else {
+      console.log(false, i);
+    }
+  });
+};
+
+const okayFoodArr = (dogsArr) => {
+  const okayArr = dogsArr.filter(({ currentFood, recommendedFood }) =>
+    okayCondition(currentFood, recommendedFood)
+  );
+  console.log(okayArr);
+};
+
+const sortedDogs = (dogsArr) => {
+  const copyDogs = dogsArr.slice();
+  copyDogs.sort((a, b) => {
+    return a.recommendedFood - b.recommendedFood;
+  });
+  console.log(copyDogs);
+};
+
+calcRecommendedFood(dogs);
+isSarahDogOverEating(dogs);
+const data = constructNewArray(dogs);
+logNewArrayMessage3(data);
+balancedDiet(dogs);
+okayAmountOfFood(dogs);
+okayFoodArr(dogs);
+sortedDogs(dogs);
+
+// console.log(dogs);
+*/
